@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "user",
+    "password": "1234567",
+    "database": "carmanagement",
+    "host": "localhost",
+    "dialect": "user"
+  },
+  "test": {
+    "username": "admin",
+    "password": "1234567",
+    "database": "carmanagement",
+    "host": "localhost",
+    "dialect": "admin"
+  },
+  "production": {
+    "username": "proadmin",
+    "password": "1234567",
+    "database": "carmanagement",
+    "host": "localhost",
+    "dialect": "proadmin"
+  }
+}

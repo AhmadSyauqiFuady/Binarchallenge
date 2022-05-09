@@ -1,0 +1,187 @@
+<%- include('../partials/head.ejs') %>
+
+<!-- dashboard -->
+<div class="dashboard">
+  <!-- parent of all section -->
+  <div class="row no-gutters">
+    <!-- left side : blue-sidebar -->
+    <%- include('../partials/blue-sidebar.ejs') %>
+
+    <!-- right side : navbar, light-sidebar and main content -->
+    <div class="dashboard-content" style="width: 95%">
+      <!-- navbar -->
+      <%- include('../partials/navbar.ejs') %>
+
+      <!-- parent of light sidebar and main content -->
+      <div class="row no-gutters main-dashboard">
+        <!-- light sidebar -->
+        <%- include('../partials/white-sidebar.ejs') %>
+
+        <!-- MAIN CONTENT -->
+
+        <div class="col-10 main-content" style="background: #f4f5f7">
+          <% if(messages.success != '') { %>
+          <center>
+            <div class="toast my-3 bg-success">
+              <div class="w-full my-2 d-flex justify-content-center text-white font-weight-bolder"><%= messages.success %></div>
+            </div>
+          </center>
+          <script>
+            $(document).ready(function () {
+              $(".toast").toast("show");
+            });
+          </script>
+          <% } %> <% if(messages.delete != '') { %>
+          <center>
+            <div class="toast my-3 bg-secondary">
+              <div class="w-full my-2 d-flex justify-content-center text-white font-weight-bolder"><%= messages.delete %></div>
+            </div>
+          </center>
+          <script>
+            $(document).ready(function () {
+              $(".toast").toast("show");
+            });
+          </script>
+          <% } %>
+
+          <!-- directory path -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background: #f4f5f7">
+              <li class="breadcrumb-item font-weight-bold">Cars</li>
+              <li class="breadcrumb-item text-dark active" aria-current="page" id="bc">List Car</li>
+            </ol>
+          </nav>
+          <!-- title content -->
+          <div class="title-content ml-3 d-flex justify-content-between">
+            <p class="font-weight-bold" style="font-size: 20px; height: 42px">List Car</p>
+            <button class="btn mr-3 h-75 d-inline-block" type="submit" style="background-color: #0d28a6; border: none">
+              <a href="/add" class="text-decoration-none text-light">+ Add New Car</a>
+            </button>
+          </div>
+          <!-- category -->
+          <style>
+            body{
+              overflow-x:hidden;
+            }
+            .filter-active {
+              background-color: #cfd4ed;
+              border-radius: 0px;
+              border: 1px solid #0d28a6;
+            }
+            .filter-no-active {
+              background-color: white;
+              border-radius: 0px;
+              border: 1px solid #0d28a6;
+            }
+          </style>
+          <div class="category ml-3">
+            <a
+              href="/cars"
+              class="btn <%= query == 'all' ? 'filter-active' : 'text-sub-primary outline-sub-primary filter-no-active' %> mr-2"
+            >
+              All
+            </a>
+            <a
+              href="/cars/small"
+              class="btn <%= query == 'small' ? 'filter-active' : 'text-sub-primary outline-sub-primary filter-no-active' %> mr-2"
+            >
+              Small
+            </a>
+            <a
+              href="/cars/medium"
+              class="btn <%= query == 'medium' ? 'filter-active' : 'text-sub-primary outline-sub-primary filter-no-active' %> mr-2"
+            >
+              Medium
+            </a>
+            <a
+              href="/cars/large"
+              class="btn <%= query == 'large' ? 'filter-active' : 'text-sub-primary outline-sub-primary filter-no-active' %> mr-2"
+            >
+              Large
+            </a>
+          </div>
+          <!-- card -->
+          <div class="row">
+            <!-- item card -->
+            <% datas.forEach(data => { %>
+            <div class="col-md-4">
+              <div class="m-1 w-full pt-4">
+                <div class="card w-full">
+                  <div class="card-body">
+                    <img src="<%- data.picture %>" alt="mobil" />
+
+                    <p class="card-title tipe-mobil" style="font-weight: 400; font-size: 14px"><%- data.name %></p>
+                    <p class="card-text harga-mobil" style="font-weight: 700; font-size: 16px">
+                      <%- Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", }).format(data.price) %> / hari
+                    </p>
+                    <p class="time-updated" style="font-weight: 300; font-size: 14px">
+                      <img src="/images/fi_clock.png" alt="" /> Updated at <%- data.updatedAt %>
+                    </p>
+                    <div class="row no-gutters d-flex justify-content-between">
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-inline"
+                        style="width: 48%"
+                        data-toggle="modal"
+                        data-target="#exampleModal<%- data.uid %>"
+                      >
+                        <img src="/images/fi_trash.png" alt="" />Delete
+                      </button>
+                      <button class="btn btn-success btn-inline" type="submit" style="width: 48%">
+                        <img src="/images/fi_edit.png" alt="" /><a href="/edit/<%- data.uid %>" class="text-decoration-none text-light"
+                          >Edit</a
+                        >
+                      </button>
+                      <!-- Modal -->
+                      <div
+                        class="modal fade"
+                        id="exampleModal<%- data.uid %>"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog d-flex justify-content-center">
+                          <div class="modal-content d-flex align-items-center" style="width: 387px">
+                            <div class="card-body text-center">
+                              <img class="mb-4 mt-4" src="/images/img-bep.png" alt="" style="width: 153; height: 121" />
+                              <p class="mb-4" style="font-weight: 700; font-size: 16px">Menghapus Data Mobil</p>
+                              <p class="mb-4">Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin ingin menghapus?</p>
+                              <form action="/delete/<%= data.uid %>?_method=DELETE" method="post">
+                                <div class="confirm-button mb-4">
+                                  <input type="hidden" name="_method" value="DELETE" />
+                                  <button type="submit" class="btn text-light" style="width: 87px; height: 36; background-color: #0d28a6">
+                                    <span class="text-decoration-none text-light">Delete</span>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    data-dismiss="modal"
+                                    class="btn"
+                                    style="width: 87px; height: 36; background-color: white; border: 1px solid #0d28a6"
+                                  >
+                                    Tidak
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+        <!-- end of main content -->
+      </div>
+      <!-- end of light sidebar and main content -->
+    </div>
+    <!-- end of right side -->
+  </div>
+  <!-- end of all section -->
+</div>
+<!-- end of dashboard -->
+
+<%- include('../partials/end.ejs') %>

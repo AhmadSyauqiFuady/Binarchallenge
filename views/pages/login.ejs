@@ -1,0 +1,41 @@
+<%- include('../partials/head.ejs') %>
+<!-- login page -->
+<div class="login-page">
+  <!-- parent all section -->
+  <div class="row no-gutters">
+    <!-- backgroung image -->
+    <div class="col-8">
+      <img src="/images/image-login.png" style="height: 100vh; width: 100%" alt="halo" />
+    </div>
+    <!-- form container -->
+    <div class="col-4 d-flex align-items-center justify-content-center">
+      <form action="/login" method="POST" class="login-form" style="width: 80%">
+        <img src="/images/logo.png" alt="" />
+        <h3>Welcome, Admin BCR</h3>
+
+        <% if(typeof alert != 'undefined') { %> <% alert.forEach(function(error) { %>
+        <div class="alert" role="alert" style="background: rgba(255, 0, 0, 0.1); color: #c62828; line-height: 20px; padding: 5px 8px; border: 1px solid #ef9a9a"><%= error.msg %></div>
+        <% }) %> <% } %>
+
+        <!-- email -->
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="text" placeholder="Contoh: johndee@gmail.com" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" required />
+        </div>
+        <!-- password -->
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input placeholder="6+ karakter" type="password" class="form-control" name="password" id="exampleInputPassword1" required />
+        </div>
+        <!-- button submit -->
+        <button type="submit" class="check btn" style="background: #0d28a6; color: white; width: 100%">Sign In</button>
+        <p class="message"></p>
+      </form>
+    </div>
+    <!-- end of form container -->
+  </div>
+  <!-- end of all section -->
+</div>
+<!-- end of login-page -->
+
+<%- include('../partials/end.ejs') %>

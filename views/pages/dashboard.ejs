@@ -1,0 +1,206 @@
+<%- include('../partials/head.ejs') %>
+
+<!-- dashboard -->
+<div class="dashboard">
+  <!-- parent of all section -->
+  <div class="row no-gutters">
+    <!-- left side : blue-sidebar -->
+    <%- include('../partials/blue-sidebar.ejs') %>
+
+    <!-- right side : navbar, light-sidebar and main content -->
+    <div class="dashboard-content" style="width: 95%">
+      <!-- navbar -->
+      <%- include('../partials/navbar.ejs') %>
+
+      <!-- parent of light sidebar and main content -->
+      <div class="row no-gutters main-dashboard">
+        <!-- light sidebar -->
+        <%- include('../partials/white-sidebar.ejs') %>
+
+        <!-- MAIN CONTENT -->
+
+        <div class="col-10 main-content" style="background: #f4f5f7">
+          <!-- breadcumb -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background: #f4f5f7">
+              <li class="breadcrumb-item font-weight-bold">Dashboard</li>
+              <li class="breadcrumb-item text-dark active" aria-current="page" id="bc">Dashboard</li>
+            </ol>
+          </nav>
+          <!-- title content -->
+          <div class="tittle-content ml-3">
+            <p class="font-weight-bold" style="font-size: 20px; height: 42px">Dashboard</p>
+          </div>
+          <!-- list order -->
+          <div class="sub-tittle-content mx-4 pb-3">
+            <p class="" style="font-size: 14px; height: 42px"><img src="/images/list-car.png" alt="" /> List Order</p>
+            <table class="table" style="border-radius: 8px">
+              <thead>
+                <tr style="background: #cfd4ed">
+                  <th scope="col">No</th>
+                  <th scope="col">User Email</th>
+                  <th scope="col">Car</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- ambil data dari series json untuk ditampilkan -->
+                <% datas.forEach(data => { %>
+                <tr style="background: white">
+                  <th style="font-weight: normal"><%- data.uid %></th>
+                  <td>admin@admin.com</td>
+                  <td><%- data.name %></td>
+                  <td><%- data.price %></td>
+                  <td>Done</td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+
+            <!-- pagenation section-->
+            <div class="row no-gutters pagenation-section">
+              <div class="row no-gutters left-pagenation w-50">
+                <div class="col-2 limit mr-3">
+                  <p>Limit</p>
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" style="width: 58px">
+                      <option selected>10</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-3 jump">
+                  <p>Jump to page</p>
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                    <div class="input-group-append">
+                      <button class="btn text-light" type="button" style="background: #0d28a6; color: white">Go</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="right-pagenation w-50 d-flex justify-content-end align-items-end">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" style="background: #cfd4ed" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">9</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- list car -->
+          <div class="sub-tittle-content mx-4 pb-3 pt-4">
+            <p class="" style="font-size: 14px; height: 42px"><img src="/images/list-car.png" alt="" /> List Car</p>
+            <table class="table">
+              <thead>
+                <tr style="background: #cfd4ed">
+                  <th scope="col">No</th>
+                  <th scope="col">car</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- ambil data dari series json untuk ditampilkan -->
+                <% datas.forEach(data => { %>
+                <tr style="background: white">
+                  <th scope="row" style="font-weight: normal"><%- data.uid %></th>
+                  <td><%- data.name %></td>
+                  <td><%- data.size %></td>
+                  <td><%- data.price %></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+            <!-- pagenation section-->
+            <div class="row no-gutters pagenation-section">
+              <div class="row no-gutters left-pagenation w-50">
+                <div class="col-2 limit mr-3">
+                  <p>Limit</p>
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" style="width: 58px">
+                      <option selected>10</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-3 jump">
+                  <p>Jump to page</p>
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                    <div class="input-group-append">
+                      <button class="btn text-light" type="button" style="background: #0d28a6; color: white">Go</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="right-pagenation w-50 d-flex justify-content-end align-items-end">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" style="background: #cfd4ed" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">9</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of main content -->
+      </div>
+      <!-- end of light sidebar and main content -->
+    </div>
+    <!-- end of right side -->
+  </div>
+  <!-- end of all section -->
+</div>
+<!-- end of dashboard -->
+
+<script>
+  $(".datapicker", function () {
+    eventFired("Order");
+  });
+</script>
+<%- include('../partials/end.ejs') %>

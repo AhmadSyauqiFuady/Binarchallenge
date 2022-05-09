@@ -1,0 +1,117 @@
+<%- include('../partials/head.ejs') %>
+
+<!-- dashboard -->
+<div class="dashboard">
+  <!-- parent of all section -->
+  <div class="row no-gutters">
+    <!-- left side : blue-sidebar -->
+    <%- include('../partials/blue-sidebar.ejs') %>
+
+    <!-- right side : navbar, light-sidebar and main content -->
+    <div class="dashboard-content" style="width: 95%">
+      <!-- navbar -->
+      <%- include('../partials/navbar.ejs') %>
+
+      <!-- parent of light sidebar and main content -->
+      <div class="row no-gutters main-dashboard">
+        <!-- light sidebar -->
+        <%- include('../partials/white-sidebar.ejs') %>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-10 main-content pb-5" style="background: #f4f5f7">
+          <!-- current path -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background: #f4f5f7">
+              <li class="breadcrumb-item font-weight-bold"><a href="<%= href %> " class="text-dark">Cars</a></li>
+              <li class="breadcrumb-item font-weight-bold" id="bc"><a href="/cars" class="text-dark">List Car</a></li>
+              <li class="breadcrumb-item text-dark active" aria-current="page" id="bc"><%= titleContent %></li>
+            </ol>
+          </nav>
+          <!-- title content -->
+          <div class="tittle-content ml-3 d-flex justify-content-between">
+            <p class="font-weight-bold" style="font-size: 20px; height: 42px"><%= titleContent %></p>
+          </div>
+          <!-- form add/edit-->
+          <form class="input-off ml-3 mr-3 mb-5" action="<%= action %> " method="post" enctype="multipart/form-data">
+            <div class="p-3" style="background-color: white; border-radius: 4px; margin-bottom: 200px;">
+              <% if(title == 'Edit Car') { %>
+                <input type="hidden" name="_method" value="PUT">
+                <%}%>
+<!-- input nama -->
+            <div class="row form-group no-gutters d-flex justify-content-start pt-3">
+              <label class="col-2 d-flex align-items-center required control-label" style="margin: 0">Name</label>
+              <input name="nama" value="<%= selectedData.name ? selectedData.name : '' %> " type="text" class="col-4 form-control pl-2" placeholder="Masukkan Nama" aria-label="Nama" aria-describedby="basic-addon1" required="required" />
+            </div>
+            <!-- input harga -->
+            <div class="row no-gutters d-flex justify-content-start pt-3">
+              <label class="col-2 d-flex align-items-center required control-label" style="margin: 0">Harga</label>
+              <input
+                name="harga"
+                value="<%= selectedData.price ? selectedData.price : '' %> "
+                type="text"
+                class="col-4 form-control pl-2"
+                placeholder="Masukkan Harga"
+                aria-label="Harga"
+                aria-describedby="basic-addon1"
+                required="required"
+              />
+            </div>
+            <!-- input harga -->
+            <div class="row no-gutters d-flex justify-content-start pt-3">
+              <label class="col-2 d-flex align-items-center required control-label" style="margin: 0">Ukuran</label>
+              <select
+                name="ukuran"
+                type="text"
+                class="col-4 form-control pl-2"
+                aria-label="Ukuran"
+                aria-describedby="basic-addon1"
+                required="required"
+              >
+              <option value="Small" <%- selectedData.size == 'Small' ? 'selected' : '' %> >Small</option>
+              <option value="Medium" <%- selectedData.size == 'Medium' ? 'selected' : '' %> >Medium</option>
+              <option value="Large" <%- selectedData.size == 'Large' ? 'selected' : '' %> >Large</option>
+              </select>
+            </div>
+
+            <!-- upload -->
+            <div class="row no-gutters d-flex justify-content-start mt-3">
+              <label class="col-2 d-flex align-items-start required control-label" style="margin: 0">Upload</label>
+              <div class="upload-file col-4">
+                <div class="custom-file form-control pl-2">
+                  <input name="foto" value="<%= selectedData.picture ? path : '' %>" type="file" class="custom-file-input" id="customFile"  />
+                  <label class="custom-file-label" for="customFile"><%= selectedData.picture ? path : 'Choose a file' %></label>
+                </div>
+                <small id="fileHelp" class="form-text text-muted"><p style="margin: 0">File size max. 2MB</p></small>
+              </div>
+            </div>
+
+            <script>
+              $('#customFile').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+            })
+            </script>
+            </div>
+            
+
+          <!-- button add car -->
+          <a href="/cars">
+            <button type="button" class="btn mr-2 ml-4" style="background-color: white; border-radius: 0px; border: 1px solid #0d28a6">Cancel</button>
+          </a>
+          <button type="submit" class="btn text-light mr-2" style="background-color: #0d28a6; border-radius: 0px; margin-left: 20px">Save</button>
+</form>
+          <!-- end of input form -->
+        </div>
+        <!-- end of main content -->
+      </div>
+      <!-- end of light sidebar and main content -->
+    </div>
+    <!-- end of right side -->
+  </div>
+  <!-- end of all section -->
+</div>
+<!-- end of dashboard -->
+
+<%- include('../partials/end.ejs') %>
